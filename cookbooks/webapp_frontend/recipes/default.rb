@@ -35,6 +35,18 @@ template node['tomcat1']['base_dir'] + 'conf/server.xml' do
     variables(port_number: node['tomcat1']['port_number'])
   end
 
+  template node['tomcat1']['base_dir'] + 'bin/setenv.sh' do
+    source 'setenv.sh.erb'
+    owner node['tomcat']['tomcat_user']
+    group node['tomcat']['tomcat_group']
+    mode '0644'
+    variables(
+      min_heap: node['tomcat1']['min_heap'],
+      max_heap: node['tomcat1']['max_heap'],
+      max_permgen: node['tomcat1']['max_permgen']
+    )
+  end
+
 remote_file node['tomcat1']['base_dir'] + 'webapps/sample.war' do
     owner node['tomcat']['tomcat_user']
 #    group node['tomcat']['tomcat_group']
@@ -47,10 +59,7 @@ tomcat_service node['tomcat1']['name'] do
   action [:start, :enable]
   env_vars [
       { 'CATALINA_BASE' => node['tomcat1']['base_dir'] },
-      { 'CATALINA_PID' => node['tomcat1']['base_dir'] + 'bin/non_standard_location.pid' },
-      { 'SOMETHING' => 'some_value' }
+      { 'CATALINA_PID' => node['tomcat1']['base_dir'] + 'bin/non_standard_location.pid' }
     ]
   sensitive true
- #  tomcat_user node['tomcat']['tomcat_user']
- # tomcat_group node['tomcat']['tomcat_group']
 end

@@ -1,1 +1,5 @@
-export JAVA_OPTS="-Xms256m -Xmx512m"
+
+
+export CATALINA_OPTS="$CATALINA_OPTS -Xms<%= @min_heap %>m"
+export CATALINA_OPTS="$CATALINA_OPTS -Xmx<%= @max_heap %>m"
+export CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=<%= @max_permgen %>m"
