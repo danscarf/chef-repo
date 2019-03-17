@@ -18,3 +18,6 @@ chef_version '>= 13.0'
 # a Supermarket.
 #
 # source_url 'https://github.com/<insert_org_here>/webapp_frontend'
+
+depends 'java', '3.2.1'
+depends 'tomcat', '3.2.0'
