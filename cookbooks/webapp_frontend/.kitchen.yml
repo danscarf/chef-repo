@@ -18,7 +18,10 @@ platforms:
             box: CentOS-7-x86_64-Vagrant-1902_01.VirtualBox
             box_url: http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-x86_64-Vagrant-1902_01.VirtualBox.box
             network: 
-              - ["forwarded_port", {guest: 8081, host: 8081}]
+              - ["forwarded_port", {guest: 8001, host: 8001}]
+              - ["forwarded_port", {guest: 8002, host: 8002}]
+              - ["forwarded_port", {guest: 8003, host: 8003}]
+              - ["forwarded_port", {guest: 8004, host: 8004}]
 
 suites:
   - name: default
