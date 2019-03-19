@@ -45,18 +45,17 @@ template node['tomcat1']['base_dir'] + 'conf/server.xml' do
     )
   end
 
-remote_file node['tomcat1']['base_dir'] + 'webapps/sample.war' do
+cookbook_file node['tomcat1']['base_dir'] + 'webapps/sample.war' do
     owner node['tomcat']['tomcat_user']
     mode '0644'
-    source 'https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war'
-    checksum '89b33caa5bf4cfd235f060c396cb1a5acb2734a1366db325676f48c5f5ed92e5'
+    source 'sample.war'
   end
   
 tomcat_service node['tomcat1']['name'] do
   action [:start, :enable]
   env_vars [
-      { 'CATALINA_BASE' => node['tomcat2']['base_dir'] },
-      { 'CATALINA_PID' => node['tomcat2']['base_dir'] + 'bin/non_standard_location.pid' }
+      { 'CATALINA_BASE' => node['tomcat1']['base_dir'] },
+      { 'CATALINA_PID' => node['tomcat1']['base_dir'] + 'bin/non_standard_location.pid' }
     ]
   sensitive true
 end
@@ -76,24 +75,23 @@ template node['tomcat2']['base_dir'] + 'conf/server.xml' do
     variables(port_number: node['tomcat2']['port_number'])
   end
 
-  template node['tomcat2']['base_dir'] + 'bin/setenv.sh' do
-    source 'setenv.sh.erb'
-    owner node['tomcat']['tomcat_user']
-    group node['tomcat']['tomcat_group']
-    mode '0644'
-    variables(
-      min_heap: node['tomcat2']['min_heap'],
-      max_heap: node['tomcat2']['max_heap'],
-      max_permgen: node['tomcat2']['max_permgen']
-    )
-  end
+template node['tomcat2']['base_dir'] + 'bin/setenv.sh' do
+  source 'setenv.sh.erb'
+  owner node['tomcat']['tomcat_user']
+  group node['tomcat']['tomcat_group']
+  mode '0644'
+  variables(
+    min_heap: node['tomcat2']['min_heap'],
+    max_heap: node['tomcat2']['max_heap'],
+    max_permgen: node['tomcat2']['max_permgen']
+  )
+end
 
-remote_file node['tomcat2']['base_dir'] + 'webapps/sample.war' do
+cookbook_file node['tomcat2']['base_dir'] + 'webapps/sample.war' do
     owner node['tomcat']['tomcat_user']
     mode '0644'
-    source 'https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war'
-    checksum '89b33caa5bf4cfd235f060c396cb1a5acb2734a1366db325676f48c5f5ed92e5'
-  end
+    source 'sample.war'
+end
   
 tomcat_service node['tomcat2']['name'] do
   action [:start, :enable]
@@ -131,18 +129,17 @@ template node['tomcat3']['base_dir'] + 'conf/server.xml' do
     )
   end
 
-remote_file node['tomcat3']['base_dir'] + 'webapps/sample.war' do
+cookbook_file node['tomcat3']['base_dir'] + 'webapps/sample.war' do
     owner node['tomcat']['tomcat_user']
     mode '0644'
-    source 'https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war'
-    checksum '89b33caa5bf4cfd235f060c396cb1a5acb2734a1366db325676f48c5f5ed92e5'
+    source 'sample.war'
   end
   
 tomcat_service node['tomcat3']['name'] do
   action [:start, :enable]
   env_vars [
-      { 'CATALINA_BASE' => node['tomcat4']['base_dir'] },
-      { 'CATALINA_PID' => node['tomcat4']['base_dir'] + 'bin/non_standard_location.pid' }
+      { 'CATALINA_BASE' => node['tomcat3']['base_dir'] },
+      { 'CATALINA_PID' => node['tomcat3']['base_dir'] + 'bin/non_standard_location.pid' }
     ]
   sensitive true
 end
@@ -174,11 +171,10 @@ template node['tomcat4']['base_dir'] + 'conf/server.xml' do
     )
   end
 
-remote_file node['tomcat4']['base_dir'] + 'webapps/sample.war' do
+cookbook_file node['tomcat4']['base_dir'] + 'webapps/sample.war' do
     owner node['tomcat']['tomcat_user']
     mode '0644'
-    source 'https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war'
-    checksum '89b33caa5bf4cfd235f060c396cb1a5acb2734a1366db325676f48c5f5ed92e5'
+    source 'sample.war'
   end
   
 tomcat_service node['tomcat4']['name'] do
