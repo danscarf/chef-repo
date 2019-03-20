@@ -30,7 +30,10 @@ template node['tomcat1']['base_dir'] + 'conf/server.xml' do
     owner node['tomcat']['tomcat_user']
     group node['tomcat']['tomcat_group']
     mode '0644'
-    variables(port_number: node['tomcat1']['port_number'])
+    variables(
+      port_number: node['tomcat1']['port_number'],
+      shutdown_port_number: node['tomcat1']['shutdown_port_number']
+      )
   end
 
   template node['tomcat1']['base_dir'] + 'bin/setenv.sh' do
@@ -72,7 +75,10 @@ template node['tomcat2']['base_dir'] + 'conf/server.xml' do
     owner node['tomcat']['tomcat_user']
     group node['tomcat']['tomcat_group']
     mode '0644'
-    variables(port_number: node['tomcat2']['port_number'])
+    variables(
+      port_number: node['tomcat2']['port_number'],
+      shutdown_port_number: node['tomcat2']['shutdown_port_number']
+      )
   end
 
 template node['tomcat2']['base_dir'] + 'bin/setenv.sh' do
@@ -114,7 +120,10 @@ template node['tomcat3']['base_dir'] + 'conf/server.xml' do
     owner node['tomcat']['tomcat_user']
     group node['tomcat']['tomcat_group']
     mode '0644'
-    variables(port_number: node['tomcat3']['port_number'])
+    variables(
+      port_number: node['tomcat3']['port_number'],
+      shutdown_port_number: node['tomcat3']['shutdown_port_number']
+      )
   end
 
   template node['tomcat3']['base_dir'] + 'bin/setenv.sh' do
@@ -156,7 +165,10 @@ template node['tomcat4']['base_dir'] + 'conf/server.xml' do
     owner node['tomcat']['tomcat_user']
     group node['tomcat']['tomcat_group']
     mode '0644'
-    variables(port_number: node['tomcat4']['port_number'])
+    variables(
+      port_number: node['tomcat4']['port_number'],
+      shutdown_port_number: node['tomcat4']['shutdown_port_number']
+      )
   end
 
   template node['tomcat4']['base_dir'] + 'bin/setenv.sh' do
